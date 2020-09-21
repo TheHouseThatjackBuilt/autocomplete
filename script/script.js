@@ -103,7 +103,6 @@ note.addEventListener('click', deleteNote);
     result.forEach(e => e.addEventListener('click', () => {
         // in setTimout removing class 'note__item_hidden' for appearance animation.
         const name = e.firstElementChild.innerHTML;
-        console.log(response);
         const element = response.find(e => e.name === name);
         const li = createNote(element);
         setTimeout(() => li.classList.remove('note__item_hidden'), 100);
