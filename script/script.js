@@ -32,7 +32,8 @@ const search = e => {
     const requestURL = 'https://api.github.com/search/repositories?q=';
     if (e.target.value === '') return;
     return sendRequest(`${requestURL}${e.target.value}`);
-};// if we didn't find anything - then:
+};
+// if we didn't find anything - then:
 const notice = el => {
     const headerName = document.createElement('h3');
     headerName.textContent = 'Nothing found :(';
@@ -40,7 +41,8 @@ const notice = el => {
     el.append(headerName);
     el.classList.remove('result__item_hidden');
     el.classList.add('result__item_empty');
-};// creating note elements, return li with '.note__item_hidden' to be processed later.
+};
+// creating note elements, return li with '.note__item_hidden' to be processed later.
 const createNote = ({ name, owner: { login, avatar_url }, stargazers_count }) => {
     const li = document.createElement('li');
     const noteContainer = document.createElement('div');
