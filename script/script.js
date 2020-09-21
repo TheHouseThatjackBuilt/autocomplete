@@ -31,7 +31,7 @@ const autocomplete = (element, counter, arr) => {
 const search = e => {
     const requestURL = 'https://api.github.com/search/repositories?q=';
     if (e.target.value === '') return;
-    return sendRequest(`${requestURL}${e.target.value}`);
+    return sendRequest(`${requestURL}${e.target.value}&sort=stars`);
 };
 // if we didn't find anything - then:
 const notice = el => {
