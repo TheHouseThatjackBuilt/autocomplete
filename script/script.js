@@ -2,6 +2,7 @@
 const input = document.querySelector('.search__input');
 const result = [...document.querySelectorAll('.result__item')];
 const note = document.querySelector('.note');
+
 // cleaning the search results field
 const clear = () => {
     let searchOptions = document.querySelectorAll('.result__header');
@@ -33,6 +34,7 @@ const search = e => {
     if (e.target.value === '') return;
     return sendRequest(`${requestURL}${e.target.value}&sort=stars`);
 };
+
 // if we didn't find anything - then:
 const notice = el => {
     const headerName = document.createElement('h3');
@@ -42,6 +44,7 @@ const notice = el => {
     el.classList.remove('result__item_hidden');
     el.classList.add('result__item_empty');
 };
+
 // creating note elements, return li with '.note__item_hidden' to be processed later.
 const createNote = ({ name, owner: { login, avatar_url }, stargazers_count }) => {
     const li = document.createElement('li');
@@ -76,6 +79,7 @@ const createNote = ({ name, owner: { login, avatar_url }, stargazers_count }) =>
     note.append(li);
     return li;
 };
+
 // remove the note.
 const deleteNote = e => {
     if (!e.target.classList.contains('note__close')) return;
@@ -84,6 +88,7 @@ const deleteNote = e => {
     setTimeout(() => element.remove(), 500)
 };
 note.addEventListener('click', deleteNote);
+
 // anonymous self-invoking function to encapsulate the 'response' variable.
 (() => {
     let response;
@@ -93,8 +98,9 @@ note.addEventListener('click', deleteNote);
         if (this.value.length < 3) return;
 
         try { response = await search(e) }
-        catch(e) { throw e }
+        catch(e) { throw e } // we can handle 404 here
 
+        //if (typeof response === 'undefined')// or we can handle undefined here
         if (response.length > result.length) response.length = result.length;
         if (response.length === 0) notice(result[0]);
         else response.forEach((element, i) => autocomplete(element, i, result));
